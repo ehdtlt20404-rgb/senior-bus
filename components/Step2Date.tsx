@@ -2,10 +2,14 @@
 
 import { BookingData } from "@/app/page";
 
+// 실제 고속버스 배차 기준: 첫차 06:00, 막차 23:30, 30분 간격
 const TIMES = [
-  "06:00", "07:00", "08:00", "09:00", "10:00", "11:00",
-  "12:00", "13:00", "14:00", "15:00", "16:00", "17:00",
-  "18:00", "19:00", "20:00", "21:00",
+  "06:00", "06:30", "07:00", "07:30", "08:00", "08:30",
+  "09:00", "09:30", "10:00", "10:30", "11:00", "11:30",
+  "12:00", "12:30", "13:00", "13:30", "14:00", "14:30",
+  "15:00", "15:30", "16:00", "16:30", "17:00", "17:30",
+  "18:00", "18:30", "19:00", "19:30", "20:00", "20:30",
+  "21:00", "21:30", "22:00", "22:30", "23:00", "23:30",
 ];
 
 type Props = {
@@ -82,27 +86,36 @@ export default function Step2Date({ booking, update, onNext, onPrev }: Props) {
           </div>
         </div>
 
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "10px" }}>
-          {TIMES.map((t) => (
-            <button
-              key={t}
-              onClick={() => update({ time: t })}
-              style={{
-                padding: "14px 8px",
-                borderRadius: "12px",
-                border: booking.time === t ? "3px solid #1d4ed8" : "2px solid #e5e7eb",
-                background: booking.time === t ? "#dbeafe" : "white",
-                color: booking.time === t ? "#1d4ed8" : "#374151",
-                fontSize: "18px",
-                fontWeight: booking.time === t ? "800" : "500",
-                cursor: "pointer",
-              }}
-              aria-pressed={booking.time === t}
-            >
-              {t}
-            </button>
-          ))}
-        </div>
+        {[
+          { label: "🌅 오전", times: TIMES.filter(t => parseInt(t) < 12) },
+          { label: "☀️ 오후", times: TIMES.filter(t => parseInt(t) >= 12 && parseInt(t) < 18) },
+          { label: "🌙 저녁", times: TIMES.filter(t => parseInt(t) >= 18) },
+        ].map((group) => (
+          <div key={group.label} style={{ marginBottom: "16px" }}>
+            <div style={{ fontSize: "15px", fontWeight: "700", color: "#6b7280", marginBottom: "8px" }}>{group.label}</div>
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "8px" }}>
+              {group.times.map((t) => (
+                <button
+                  key={t}
+                  onClick={() => update({ time: t })}
+                  style={{
+                    padding: "12px 6px",
+                    borderRadius: "10px",
+                    border: booking.time === t ? "3px solid #1d4ed8" : "2px solid #e5e7eb",
+                    background: booking.time === t ? "#dbeafe" : "white",
+                    color: booking.time === t ? "#1d4ed8" : "#374151",
+                    fontSize: "16px",
+                    fontWeight: booking.time === t ? "800" : "500",
+                    cursor: "pointer",
+                  }}
+                  aria-pressed={booking.time === t}
+                >
+                  {t}
+                </button>
+              ))}
+            </div>
+          </div>
+        ))}
       </div>
 
       {/* 선택 요약 */}
