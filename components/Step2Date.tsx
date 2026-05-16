@@ -27,7 +27,7 @@ function getDateOptions() {
     const days = ["일", "월", "화", "수", "목", "금", "토"];
     const day = days[d.getDay()];
     const isWeekend = d.getDay() === 0 || d.getDay() === 6;
-    options.push({ value: `${yyyy}-${mm}-${dd}`, label: `${mm}월 ${dd}일 (${day})`, isWeekend });
+    options.push({ value: `${yyyy}-${mm}-${dd}`, dateLabel: `${mm}월 ${dd}일`, dayLabel: day, isWeekend });
   }
   return options;
 }
@@ -57,8 +57,7 @@ export default function Step2Date({ booking, update, onNext, onPrev }: Props) {
                 padding: "16px 12px",
                 borderRadius: "12px",
                 border: booking.date === d.value ? "3px solid #1d4ed8" : "2px solid #e5e7eb",
-                background: booking.date === d.value ? "#dbeafe" : d.isWeekend ? "#fef3c7" : "white",
-                color: booking.date === d.value ? "#1d4ed8" : d.isWeekend ? "#92400e" : "#374151",
+                background: booking.date === d.value ? "#dbeafe" : "white",
                 fontSize: "17px",
                 fontWeight: booking.date === d.value ? "800" : "500",
                 textAlign: "center",
@@ -66,7 +65,8 @@ export default function Step2Date({ booking, update, onNext, onPrev }: Props) {
               }}
               aria-pressed={booking.date === d.value}
             >
-              {d.label}
+              <span style={{ color: booking.date === d.value ? "#1d4ed8" : "#374151" }}>{d.dateLabel} </span>
+              <span style={{ color: booking.date === d.value ? "#1d4ed8" : d.isWeekend ? "#dc2626" : "#374151", fontWeight: d.isWeekend ? "700" : "inherit" }}>({d.dayLabel})</span>
             </button>
           ))}
         </div>
