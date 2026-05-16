@@ -1,0 +1,19 @@
+========================================
+쉬운 버스 예약 - 배포 URL 정보
+========================================
+
+🌐 공개 URL (GitHub Pages):
+https://ehdtlt20404-rgb.github.io/senior-bus/
+
+📦 GitHub 저장소:
+https://github.com/ehdtlt20404-rgb/senior-bus
+
+📌 참고사항:
+- 배포는 GitHub Actions를 통해 자동으로 진행됩니다
+- 첫 배포 완료까지 약 2~5분 소요됩니다
+- 이후 코드 변경 후 git push 하면 자동으로 재배포됩니다
+- GitHub Pages 배포 현황: https://github.com/ehdtlt20404-rgb/senior-bus/actions
+
+========================================
+생성일: 2026-05-16
+========================================
